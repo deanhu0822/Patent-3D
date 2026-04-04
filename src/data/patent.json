@@ -1,0 +1,97 @@
+{
+  "patent_id": "US4441528A",
+  "title": "Clutch arrangement for controlling the heddles of a weaving machine",
+  "assignee": "Sulzer AG",
+  "inventor": "Werner Julich",
+  "bom": [
+    { "ref": "1", "component": "Drive Shaft" },
+    { "ref": "2", "component": "Opposed Slots (on shaft)" },
+    { "ref": "3", "component": "Nose (on pawl)" },
+    { "ref": "4", "component": "Pivot (pawl mount)" },
+    { "ref": "5", "component": "Pawl" },
+    { "ref": "6", "component": "Eccentric" },
+    { "ref": "7", "component": "Strap (connecting rod)" },
+    { "ref": "8", "component": "Pivot Point (strap-to-rod)" },
+    { "ref": "9", "component": "Rod" },
+    { "ref": "10", "component": "Heddle Connection" },
+    { "ref": "12", "component": "Fixed Bearing Pins" },
+    { "ref": "14", "component": "Two-Armed Control Levers" },
+    { "ref": "15", "component": "Connecting Arms" },
+    { "ref": "17", "component": "Secured Arm" },
+    { "ref": "21", "component": "Articulated Joint" },
+    { "ref": "22", "component": "Connecting Pin" },
+    { "ref": "23", "component": "Bar" },
+    { "ref": "25", "component": "Stroke Meter Drive" },
+    { "ref": "26", "component": "Forked Portion" },
+    { "ref": "31", "component": "Stroke Member - First Arm" },
+    { "ref": "32", "component": "Stroke Member - Second Arm" },
+    { "ref": "33", "component": "Stroke Member - Third Arm" },
+    { "ref": "35", "component": "Pivots (stroke member mount)" },
+    { "ref": "37", "component": "Bias Spring (stroke member)" },
+    { "ref": "38", "component": "Slot Extension" },
+    { "ref": "41", "component": "Overload Levers (pair)" },
+    { "ref": "44", "component": "Pin (in overload lever)" },
+    { "ref": "45", "component": "Pin (carried by lever)" },
+    { "ref": "47", "component": "Fixed Pin (drive lever mount)" },
+    { "ref": "48", "component": "Drive Lever" },
+    { "ref": "51", "component": "Fixed Electro-Magnet" },
+    { "ref": "53", "component": "Armature" },
+    { "ref": "54", "component": "Stop (armature limit)" },
+    { "ref": "55", "component": "Extension Spring (armature)" },
+    { "ref": "60", "component": "Extension Spring (pawl)" },
+    { "ref": "65", "component": "Stop" },
+    { "ref": "69", "component": "Spring (program control)" },
+    { "ref": "73", "component": "Three-Armed Levers (pair)" },
+    { "ref": "75", "component": "Secured Element Between Arms" },
+    { "ref": "77", "component": "Spring (monitoring)" },
+    { "ref": "78", "component": "Three-Armed Lever" },
+    { "ref": "79", "component": "Arm (carries vane)" },
+    { "ref": "80", "component": "Arm" },
+    { "ref": "81", "component": "Fixed Pin (monitoring mount)" },
+    { "ref": "82", "component": "Vane" },
+    { "ref": "83", "component": "Inductive Proximity Switch" },
+    { "ref": "85", "component": "Roller" },
+    { "ref": "86", "component": "Ratchet" },
+    { "ref": "88", "component": "Two-Armed Ratchet Lever" },
+    { "ref": "90", "component": "Pin (ratchet lever mount)" },
+    { "ref": "91", "component": "Bias Spring (ratchet lever)" },
+    { "ref": "92", "component": "Abutment Surface" },
+    { "ref": "95", "component": "Guideway" },
+    { "ref": "97", "component": "Stop (carried)" }
+  ],
+  "materials": [
+    { "name": "Steel", "context": "drive shaft, pins, pivots", "properties": ["metal", "high-strength", "load-bearing"] },
+    { "name": "Spring Steel", "context": "extension springs", "properties": ["elastic", "fatigue-resistant"] },
+    { "name": "Hardened Steel", "context": "pawl nose, ratchets, bearing surfaces", "properties": ["wear-resistant", "hard"] },
+    { "name": "Cast Iron", "context": "machine frame, bearing housings", "properties": ["rigid", "damping"] },
+    { "name": "Bronze", "context": "bushings, bearing pins", "properties": ["low-friction", "self-lubricating"] },
+    { "name": "Copper Wire", "context": "electromagnet coils, connecting wires", "properties": ["conductive"] },
+    { "name": "Iron Core", "context": "electromagnet, armature", "properties": ["magnetic", "ferromagnetic"] }
+  ],
+  "assemblies": {
+    "Drive Assembly": {
+      "components": ["1", "6", "7", "9"],
+      "description": "Drive shaft rotates in 180° increments. Eccentric converts rotation to reciprocating motion via strap. Rod transfers motion to heddle."
+    },
+    "Pawl Clutch System": {
+      "components": ["5", "2", "4", "60"],
+      "description": "Pawl engages/disengages from shaft slots to couple the eccentric to the drive."
+    },
+    "Control Lever Mechanism": {
+      "components": ["14", "12", "21", "23"],
+      "description": "Two-armed control levers on bearing pins linked by articulated joint and bar."
+    },
+    "Stroke Member Assembly": {
+      "components": ["31", "32", "33", "41", "37", "48"],
+      "description": "Three-armed stroke member with overload protection levers and drive lever."
+    },
+    "Program Control": {
+      "components": ["51", "53", "69"],
+      "description": "Electromagnet controls pawl engagement per weave program signal."
+    },
+    "Monitoring System": {
+      "components": ["73", "78", "83", "82", "85", "86", "88", "91"],
+      "description": "Transmission linkage drives proximity switch via vane for closed-loop heddle position monitoring."
+    }
+  }
+}
