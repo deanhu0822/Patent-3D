@@ -1,59 +1,62 @@
 import { useStore } from '../../store';
-import patentData from '../../data/patent.json';
+import { datasets } from '../../data/datasets';
 
-function findAssemblyForRef(ref) {
-  for (const [name, data] of Object.entries(patentData.assemblies)) {
-    if (data.components.includes(ref)) return { name, description: data.description };
-  }
-  return null;
-}
-
-function findMaterialForAssembly(assemblyName) {
-  const materialMap = {
-    'Drive Assembly': 'Steel',
-    'Pawl Clutch System': 'Hardened Steel',
-    'Control Lever Mechanism': 'Steel',
-    'Stroke Member Assembly': 'Steel',
-    'Program Control': 'Iron Core',
-    'Monitoring System': 'Steel',
-  };
-  return materialMap[assemblyName] ?? 'Steel';
+function formatDims(dims) {
+  if (!dims) return null;
+  const { unit, ...rest } = dims;
+  return Object.entries(rest).map(([k, v]) => `${k}: ${v}${unit}`).join(' · ');
 }
 
 export function InfoPanel() {
   const selectedRef = useStore((s) => s.selectedRef);
+  const activePatent = useStore((s) => s.activePatent);
+  const ds = datasets[activePatent];
 
-  const bom = selectedRef ? patentData.bom.find((b) => b.ref === selectedRef) : null;
-  const assembly = selectedRef ? findAssemblyForRef(selectedRef) : null;
-  const matName = assembly ? findMaterialForAssembly(assembly.name) : null;
-  const mat = matName ? patentData.materials.find((m) => m.name === matName) : null;
+  const comp = selectedRef ? ds.components[selectedRef] : null;
+  const assembly = selectedRef
+    ? ds.assemblyGroups.find((g) => g.componentIds.includes(selectedRef))
+    : null;
 
   return (
     <div className="info-panel">
-      {!bom ? (
+      {!comp ? (
         <p className="dim">Click a part to inspect</p>
       ) : (
         <>
-          <div className="info-ref">#{bom.ref}</div>
-          <div className="info-name">{bom.component}</div>
+          <div className="info-ref">{comp.id}</div>
+          <div className="info-name">{comp.name}</div>
+
           {assembly && (
-            <div className="info-assembly">
+            <div className="info-row">
               <span className="label">Assembly</span>
               <span className="value">{assembly.name}</span>
             </div>
           )}
-          {mat && (
-            <div className="info-material">
+
+          {comp.material && (
+            <div className="info-row">
               <span className="label">Material</span>
-              <span className="value">{mat.name}</span>
-              <div className="tags">
-                {mat.properties.map((p) => (
-                  <span key={p} className="tag">{p}</span>
-                ))}
-              </div>
+              <span className="value">{comp.material}</span>
             </div>
           )}
-          {assembly && <p className="desc">{assembly.description}</p>}
+
+          {comp.quantity > 1 && (
+            <div className="info-row">
+              <span className="label">Qty</span>
+              <span className="value">×{comp.quantity}</span>
+            </div>
+          )}
+
+          {comp.dimensions && (
+            <div className="info-row" style={{ flexWrap: 'wrap' }}>
+              <span className="label">Dims</span>
+              <span className="value" style={{ fontSize: 10 }}>{formatDims(comp.dimensions)}</span>
+            </div>
+          )}
+
+          {(comp.description || assembly?.description) && (
+            <p className="desc">{comp.description || assembly.description}</p>
+          )}
         </>
       )}
     </div>

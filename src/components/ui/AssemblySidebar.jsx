@@ -1,22 +1,19 @@
 import { useStore } from '../../store';
-import patentData from '../../data/patent.json';
+import { datasets } from '../../data/datasets';
 
-const ASSEMBLY_COLORS = {
-  'Drive Assembly': '#c4935a',
-  'Pawl Clutch System': '#5a9ac4',
-  'Control Lever Mechanism': '#5ac47a',
-  'Stroke Member Assembly': '#c45a5a',
-  'Program Control': '#9a5ac4',
-  'Monitoring System': '#c4c45a',
-};
+const COLORS = [
+  '#7a8a9a', '#c4935a', '#5ac47a', '#5a9ac4',
+  '#c45a5a', '#c4c45a', '#9a5ac4', '#5ac4c4',
+];
 
 export function AssemblySidebar() {
+  const activePatent = useStore((s) => s.activePatent);
   const visibleAssemblies = useStore((s) => s.visibleAssemblies);
   const toggleAssembly = useStore((s) => s.toggleAssembly);
   const isolateAssembly = useStore((s) => s.isolateAssembly);
   const showAll = useStore((s) => s.showAll);
 
-  const names = Object.keys(patentData.assemblies);
+  const groups = datasets[activePatent].assemblyGroups;
 
   return (
     <div className="sidebar">
@@ -25,29 +22,18 @@ export function AssemblySidebar() {
         <button className="btn-small" onClick={showAll}>Show All</button>
       </div>
       <ul className="assembly-list">
-        {names.map((name) => {
+        {groups.map(({ name }, i) => {
           const visible = visibleAssemblies[name];
-          const color = ASSEMBLY_COLORS[name] ?? '#888';
           return (
             <li key={name} className={`assembly-item ${visible ? '' : 'hidden'}`}>
-              <button
-                className="assembly-label"
-                onClick={() => isolateAssembly(name)}
-                title="Isolate this assembly"
-              >
-                <span className="assembly-dot" style={{ background: color }} />
+              <button className="assembly-label" onClick={() => isolateAssembly(name)} title="Isolate">
+                <span className="assembly-dot" style={{ background: COLORS[i % COLORS.length] }} />
                 <span className="assembly-name">{name}</span>
               </button>
-              <button
-                className="eye-btn"
-                onClick={() => toggleAssembly(name)}
-                title={visible ? 'Hide' : 'Show'}
-                aria-label={visible ? 'Hide assembly' : 'Show assembly'}
-              >
+              <button className="eye-btn" onClick={() => toggleAssembly(name)} aria-label={visible ? 'Hide' : 'Show'}>
                 {visible ? (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
                   </svg>
                 ) : (
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

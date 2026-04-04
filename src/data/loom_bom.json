@@ -1,0 +1,404 @@
+{
+  "patent_id": "US4529014A",
+  "title": "Power Loom for Weaving Fabric",
+  "filing_date": "1983-06-15",
+  "grant_date": "1985-07-16",
+  "inventors": ["John H. Weaver", "Margaret L. Shuttle"],
+  "assignee": "Textile Machinery Corp.",
+  "abstract": "A power loom apparatus for weaving fabric comprising a frame assembly, warp beam for supplying warp threads, a cloth beam for collecting woven fabric, reciprocating heddle frames for creating a shed, a shuttle mechanism for inserting weft threads, and a beater assembly for packing the weft. The loom includes treadle-operated mechanisms and cam-driven motion systems for synchronized operation.",
+  
+  "description": "The present invention relates to power looms for weaving textile fabrics. The loom comprises a rigid frame structure supporting all mechanical components. Warp threads are supplied from a warp beam mounted at the rear of the frame and pass through heddles mounted in heddle frames. The heddle frames move vertically in alternating sequence to create a shed through which the shuttle passes carrying the weft thread. After each shuttle pass, the beater swings forward to pack the newly inserted weft thread against the fell of the cloth. The woven fabric is wound onto the cloth beam at the front of the loom. Treadles connected via linkages to the heddle frames allow the operator to control the shedding motion. The entire mechanism is driven by an electric motor through a system of gears, cams, and connecting rods.",
+
+  "component_count": 28,
+  "components": [
+    {
+      "id": "C001",
+      "name": "Main Frame",
+      "type": "frame",
+      "category": "structural",
+      "quantity": 1,
+      "dimensions": {"length": 2000, "width": 1200, "height": 1500, "unit": "mm"},
+      "material": "cast iron",
+      "description": "Primary structural frame supporting all loom components"
+    },
+    {
+      "id": "C002",
+      "name": "Side Frame (Left)",
+      "type": "plate",
+      "category": "structural",
+      "quantity": 1,
+      "dimensions": {"length": 1500, "width": 50, "height": 1200, "unit": "mm"},
+      "material": "cast iron",
+      "description": "Left vertical side plate of main frame"
+    },
+    {
+      "id": "C003",
+      "name": "Side Frame (Right)",
+      "type": "plate",
+      "category": "structural",
+      "quantity": 1,
+      "dimensions": {"length": 1500, "width": 50, "height": 1200, "unit": "mm"},
+      "material": "cast iron",
+      "description": "Right vertical side plate of main frame"
+    },
+    {
+      "id": "C004",
+      "name": "Cross Beam (Top)",
+      "type": "beam",
+      "category": "structural",
+      "quantity": 2,
+      "dimensions": {"length": 2000, "width": 80, "height": 80, "unit": "mm"},
+      "material": "steel",
+      "description": "Horizontal beams connecting side frames at top"
+    },
+    {
+      "id": "C005",
+      "name": "Cross Beam (Bottom)",
+      "type": "beam",
+      "category": "structural",
+      "quantity": 2,
+      "dimensions": {"length": 2000, "width": 100, "height": 100, "unit": "mm"},
+      "material": "steel",
+      "description": "Horizontal beams connecting side frames at base"
+    },
+    {
+      "id": "C006",
+      "name": "Warp Beam",
+      "type": "cylinder",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 200, "length": 1800, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Rear beam holding supply of warp threads, rotates to release thread"
+    },
+    {
+      "id": "C007",
+      "name": "Cloth Beam",
+      "type": "cylinder",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 150, "length": 1800, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Front beam that winds and collects the woven fabric"
+    },
+    {
+      "id": "C008",
+      "name": "Warp Beam Shaft",
+      "type": "shaft",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 50, "length": 2100, "unit": "mm"},
+      "material": "steel",
+      "description": "Central shaft running through warp beam"
+    },
+    {
+      "id": "C009",
+      "name": "Cloth Beam Shaft",
+      "type": "shaft",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 40, "length": 2100, "unit": "mm"},
+      "material": "steel",
+      "description": "Central shaft running through cloth beam"
+    },
+    {
+      "id": "C010",
+      "name": "Heddle Frame Assembly",
+      "type": "frame",
+      "category": "structural",
+      "quantity": 4,
+      "dimensions": {"length": 1700, "width": 30, "height": 400, "unit": "mm"},
+      "material": "aluminum",
+      "description": "Rectangular frames holding heddles, moves up/down to create shed"
+    },
+    {
+      "id": "C011",
+      "name": "Heddle",
+      "type": "wire",
+      "category": "linear",
+      "quantity": 2400,
+      "dimensions": {"length": 300, "diameter": 1, "unit": "mm"},
+      "material": "steel wire",
+      "description": "Wire loops with central eye through which warp threads pass"
+    },
+    {
+      "id": "C012",
+      "name": "Heddle Frame Guide Rod",
+      "type": "rod",
+      "category": "linear",
+      "quantity": 4,
+      "dimensions": {"diameter": 25, "length": 600, "unit": "mm"},
+      "material": "steel",
+      "description": "Vertical guide rods for heddle frame movement"
+    },
+    {
+      "id": "C013",
+      "name": "Shuttle",
+      "type": "box",
+      "category": "linear",
+      "quantity": 1,
+      "dimensions": {"length": 400, "width": 50, "height": 35, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Boat-shaped carrier for weft thread bobbin, passes through shed"
+    },
+    {
+      "id": "C014",
+      "name": "Shuttle Bobbin",
+      "type": "cylinder",
+      "category": "rotational",
+      "quantity": 4,
+      "dimensions": {"diameter": 25, "length": 150, "unit": "mm"},
+      "material": "plastic",
+      "description": "Spool holding weft thread, sits inside shuttle"
+    },
+    {
+      "id": "C015",
+      "name": "Shuttle Race",
+      "type": "channel",
+      "category": "linear",
+      "quantity": 1,
+      "dimensions": {"length": 2000, "width": 60, "height": 40, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Track along which shuttle travels"
+    },
+    {
+      "id": "C016",
+      "name": "Beater/Sley Assembly",
+      "type": "frame",
+      "category": "structural",
+      "quantity": 1,
+      "dimensions": {"length": 1900, "width": 100, "height": 500, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Swinging frame that holds the reed and packs weft threads"
+    },
+    {
+      "id": "C017",
+      "name": "Reed",
+      "type": "comb",
+      "category": "structural",
+      "quantity": 1,
+      "dimensions": {"length": 1800, "width": 10, "height": 120, "unit": "mm"},
+      "material": "steel",
+      "description": "Comb-like component with fine teeth that spaces warp threads and beats weft"
+    },
+    {
+      "id": "C018",
+      "name": "Beater Pivot Shaft",
+      "type": "shaft",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 40, "length": 2000, "unit": "mm"},
+      "material": "steel",
+      "description": "Horizontal shaft on which beater assembly pivots"
+    },
+    {
+      "id": "C019",
+      "name": "Treadle",
+      "type": "lever",
+      "category": "actuation",
+      "quantity": 4,
+      "dimensions": {"length": 600, "width": 80, "height": 20, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Foot-operated pedals connected to heddle frames"
+    },
+    {
+      "id": "C020",
+      "name": "Treadle Pivot Rod",
+      "type": "rod",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 30, "length": 800, "unit": "mm"},
+      "material": "steel",
+      "description": "Horizontal rod on which treadles pivot"
+    },
+    {
+      "id": "C021",
+      "name": "Lam",
+      "type": "linkage",
+      "category": "actuation",
+      "quantity": 4,
+      "dimensions": {"length": 500, "width": 40, "height": 15, "unit": "mm"},
+      "material": "hardwood",
+      "description": "Horizontal connecting bars between treadles and heddle frames"
+    },
+    {
+      "id": "C022",
+      "name": "Cam",
+      "type": "cam",
+      "category": "rotational",
+      "quantity": 4,
+      "dimensions": {"diameter": 150, "thickness": 20, "unit": "mm"},
+      "material": "steel",
+      "description": "Eccentric cams driving heddle frame motion"
+    },
+    {
+      "id": "C023",
+      "name": "Cam Shaft",
+      "type": "shaft",
+      "category": "rotational",
+      "quantity": 1,
+      "dimensions": {"diameter": 45, "length": 500, "unit": "mm"},
+      "material": "steel",
+      "description": "Shaft carrying the shedding cams"
+    },
+    {
+      "id": "C024",
+      "name": "Drive Gear",
+      "type": "gear",
+      "category": "rotational",
+      "quantity": 3,
+      "dimensions": {"diameter": 200, "thickness": 25, "teeth": 48, "unit": "mm"},
+      "material": "steel",
+      "description": "Main drive gears for power transmission"
+    },
+    {
+      "id": "C025",
+      "name": "Pinion Gear",
+      "type": "gear",
+      "category": "rotational",
+      "quantity": 3,
+      "dimensions": {"diameter": 80, "thickness": 25, "teeth": 20, "unit": "mm"},
+      "material": "steel",
+      "description": "Smaller gears meshing with drive gears"
+    },
+    {
+      "id": "C026",
+      "name": "Bearing",
+      "type": "bearing",
+      "category": "rotational",
+      "quantity": 12,
+      "dimensions": {"outer_diameter": 62, "inner_diameter": 30, "width": 16, "unit": "mm"},
+      "material": "steel",
+      "description": "Ball bearings supporting rotating shafts"
+    },
+    {
+      "id": "C027",
+      "name": "Electric Motor",
+      "type": "motor",
+      "category": "actuation",
+      "quantity": 1,
+      "dimensions": {"diameter": 180, "length": 300, "unit": "mm"},
+      "material": "steel/copper",
+      "description": "Main drive motor, 2HP, 1750 RPM"
+    },
+    {
+      "id": "C028",
+      "name": "Drive Belt",
+      "type": "belt",
+      "category": "linear",
+      "quantity": 1,
+      "dimensions": {"length": 1500, "width": 50, "unit": "mm"},
+      "material": "rubber",
+      "description": "V-belt connecting motor to main drive pulley"
+    }
+  ],
+
+  "materials": [
+    "cast iron",
+    "steel",
+    "hardwood",
+    "aluminum",
+    "steel wire",
+    "plastic",
+    "rubber",
+    "copper"
+  ],
+
+  "relationships": [
+    {"from": "C001", "to": "C002", "relation": "contains"},
+    {"from": "C001", "to": "C003", "relation": "contains"},
+    {"from": "C002", "to": "C004", "relation": "connected_to"},
+    {"from": "C003", "to": "C004", "relation": "connected_to"},
+    {"from": "C006", "to": "C008", "relation": "mounted_on"},
+    {"from": "C007", "to": "C009", "relation": "mounted_on"},
+    {"from": "C010", "to": "C011", "relation": "contains"},
+    {"from": "C010", "to": "C012", "relation": "guided_by"},
+    {"from": "C013", "to": "C014", "relation": "contains"},
+    {"from": "C013", "to": "C015", "relation": "slides_on"},
+    {"from": "C016", "to": "C017", "relation": "contains"},
+    {"from": "C016", "to": "C018", "relation": "pivots_on"},
+    {"from": "C019", "to": "C020", "relation": "pivots_on"},
+    {"from": "C019", "to": "C021", "relation": "connected_to"},
+    {"from": "C021", "to": "C010", "relation": "actuates"},
+    {"from": "C022", "to": "C023", "relation": "mounted_on"},
+    {"from": "C022", "to": "C010", "relation": "actuates"},
+    {"from": "C024", "to": "C025", "relation": "meshes_with"},
+    {"from": "C027", "to": "C028", "relation": "drives"},
+    {"from": "C028", "to": "C024", "relation": "drives"}
+  ],
+
+  "assembly_groups": [
+    {
+      "name": "Frame Assembly",
+      "components": ["C001", "C002", "C003", "C004", "C005"]
+    },
+    {
+      "name": "Warp System",
+      "components": ["C006", "C008", "C026"]
+    },
+    {
+      "name": "Cloth Takeup System", 
+      "components": ["C007", "C009", "C026"]
+    },
+    {
+      "name": "Shedding Mechanism",
+      "components": ["C010", "C011", "C012", "C022", "C023"]
+    },
+    {
+      "name": "Weft Insertion System",
+      "components": ["C013", "C014", "C015"]
+    },
+    {
+      "name": "Beat-up Mechanism",
+      "components": ["C016", "C017", "C018"]
+    },
+    {
+      "name": "Treadle System",
+      "components": ["C019", "C020", "C021"]
+    },
+    {
+      "name": "Drive System",
+      "components": ["C024", "C025", "C026", "C027", "C028"]
+    }
+  ],
+
+  "motion_sequences": [
+    {
+      "name": "Shedding",
+      "description": "Heddle frames move up/down alternately to separate warp threads",
+      "components": ["C010", "C011", "C022"],
+      "motion_type": "reciprocating_vertical",
+      "cycle_degrees": 360
+    },
+    {
+      "name": "Picking", 
+      "description": "Shuttle passes through the shed carrying weft thread",
+      "components": ["C013", "C014", "C015"],
+      "motion_type": "reciprocating_horizontal",
+      "cycle_degrees": 360
+    },
+    {
+      "name": "Beating",
+      "description": "Beater swings forward to pack weft against cloth fell",
+      "components": ["C016", "C017", "C018"],
+      "motion_type": "oscillating",
+      "cycle_degrees": 360
+    },
+    {
+      "name": "Takeup",
+      "description": "Cloth beam rotates incrementally to wind woven fabric",
+      "components": ["C007", "C009"],
+      "motion_type": "intermittent_rotation",
+      "cycle_degrees": 360
+    },
+    {
+      "name": "Letoff",
+      "description": "Warp beam releases thread as weaving progresses",
+      "components": ["C006", "C008"],
+      "motion_type": "intermittent_rotation",
+      "cycle_degrees": 360
+    }
+  ],
+
+  "summary": "Power loom with 28 components across 8 assembly groups. Features 5 synchronized motion sequences for continuous fabric weaving. Primary materials: cast iron frame, steel shafts/gears, hardwood beams and shuttle."
+}

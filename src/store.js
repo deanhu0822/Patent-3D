@@ -1,30 +1,37 @@
 import { create } from 'zustand';
-import patentData from './data/patent.json';
+import { datasets } from './data/datasets';
 
-const assemblyNames = Object.keys(patentData.assemblies);
-
-const initialVisible = assemblyNames.reduce((acc, name) => {
-  acc[name] = true;
-  return acc;
-}, {});
+function initialVisible(key) {
+  return Object.fromEntries(datasets[key].assemblyGroups.map((g) => [g.name, true]));
+}
 
 export const useStore = create((set) => ({
+  activePatent: 'loom',
+  setPatent: (key) =>
+    set(() => ({
+      activePatent: key,
+      visibleAssemblies: initialVisible(key),
+      selectedRef: null,
+      exploded: false,
+      animating: false,
+    })),
+
   selectedRef: null,
   setSelected: (ref) => set((s) => ({ selectedRef: s.selectedRef === ref ? null : ref })),
 
-  visibleAssemblies: { ...initialVisible },
+  visibleAssemblies: initialVisible('loom'),
   toggleAssembly: (name) =>
-    set((s) => ({
-      visibleAssemblies: { ...s.visibleAssemblies, [name]: !s.visibleAssemblies[name] },
-    })),
+    set((s) => ({ visibleAssemblies: { ...s.visibleAssemblies, [name]: !s.visibleAssemblies[name] } })),
   isolateAssembly: (name) =>
-    set(() => ({
-      visibleAssemblies: assemblyNames.reduce((acc, n) => {
-        acc[n] = n === name;
-        return acc;
-      }, {}),
+    set((s) => ({
+      visibleAssemblies: Object.fromEntries(
+        Object.keys(s.visibleAssemblies).map((n) => [n, n === name])
+      ),
     })),
-  showAll: () => set(() => ({ visibleAssemblies: { ...initialVisible } })),
+  showAll: () =>
+    set((s) => ({
+      visibleAssemblies: Object.fromEntries(Object.keys(s.visibleAssemblies).map((n) => [n, true])),
+    })),
 
   exploded: false,
   toggleExplode: () => set((s) => ({ exploded: !s.exploded })),
