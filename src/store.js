@@ -14,6 +14,7 @@ export const useStore = create((set) => ({
       selectedRef: null,
       exploded: false,
       animating: false,
+      supplierCache: {},
     })),
 
   selectedRef: null,
@@ -32,6 +33,10 @@ export const useStore = create((set) => ({
     set((s) => ({
       visibleAssemblies: Object.fromEntries(Object.keys(s.visibleAssemblies).map((n) => [n, true])),
     })),
+
+  supplierCache: {},
+  setSupplier: (partId, data) =>
+    set((s) => ({ supplierCache: { ...s.supplierCache, [partId]: data } })),
 
   exploded: false,
   toggleExplode: () => set((s) => ({ exploded: !s.exploded })),

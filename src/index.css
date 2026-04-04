@@ -285,6 +285,63 @@ html, body, #root {
 
 .dim { color: var(--dim); font-size: 12px; }
 
+/* ── Supplier section ────────────────────────── */
+.supplier-section {
+  margin-top: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+.supplier-btn {
+  width: 100%;
+  padding: 6px 0;
+  background: var(--accent);
+  color: #111;
+  border: none;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: opacity 0.15s;
+}
+
+.supplier-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.supplier-btn.secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  margin-top: 6px;
+  font-weight: 400;
+}
+
+.supplier-result {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.supplier-link {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: underline;
+  word-break: break-all;
+}
+
+.supplier-link:hover {
+  opacity: 0.8;
+}
+
+.supplier-error {
+  font-size: 10px;
+  color: #e05c5c;
+  margin-bottom: 6px;
+}
+
 /* ── Controls bar ────────────────────────────── */
 .controls-wrapper {
   position: fixed;

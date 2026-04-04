@@ -2,17 +2,24 @@
 
 ## Project overview
 
-Interactive 3D viewer for mechanical patent drawings. Users can orbit, click parts to inspect them, toggle assembly visibility, trigger an exploded view, and animate motion sequences.
+Interactive 3D viewer for mechanical patent drawings. Users can orbit, click parts to inspect them, toggle assembly visibility, trigger an exploded view, and animate motion sequences. Selecting a part surfaces a **"Find Supplier"** button that calls a Node.js backend powered by the Anthropic Claude SDK — Claude uses its built-in `web_search` tool to find a real supplier URL for the part.
 
 Built with Vite 8 + React 19, @react-three/fiber v9, @react-three/drei v10, three 0.160, zustand 4.
 
 ## Commands
 
 ```bash
-pnpm dev       # start dev server
+# Frontend
+pnpm dev       # start Vite dev server (proxies /api → localhost:3001)
 pnpm build     # production build
 pnpm lint      # ESLint
+
+# Backend (run in a separate terminal)
+cd server && node index.js        # start supplier API server on :3001
+cd server && node --watch index.js  # with auto-restart on changes
 ```
+
+`ANTHROPIC_API_KEY` must be set in `.env` at the project root (gitignored).
 
 ## Architecture
 
@@ -30,11 +37,13 @@ pnpm lint      # ESLint
 
 Single zustand store:
 - `activePatent: 'loom' | 'clutch'` — which dataset/scene is shown
-- `setPatent(key)` — switches dataset, resets all other state
+- `setPatent(key)` — switches dataset, resets all other state including `supplierCache`
 - `selectedRef: string | null` — selected part id (e.g. `'C001'` or `'1'`)
 - `visibleAssemblies: Record<name, boolean>`
 - `exploded: boolean`
 - `animating: boolean`
+- `supplierCache: Record<partId, {supplier, url, blurb}>` — cached AI supplier results; keyed by part id, cleared on patent switch
+- `setSupplier(partId, data)` — writes one entry into the cache
 
 ### 3D scene (`src/components/`)
 
@@ -63,7 +72,7 @@ Clutch assemblies (US4441528A): `DriveAssembly`, `PawlClutchSystem`, `ControlLev
 **Scene.jsx** — Canvas setup with lighting, OrbitControls, ground plane, and conditional `<LoomScene>` or `<ClutchScene>` based on `activePatent`.
 
 **UI components** (`ui/`) — all use `datasets[activePatent]` so they work with any patent:
-- `InfoPanel.jsx` — fixed bottom-right, shows selected part details
+- `InfoPanel.jsx` — fixed bottom-right, shows selected part details + "Find Supplier" button that calls `/api/supplier` and displays a clickable supplier link; result cached in zustand per part id
 - `AssemblySidebar.jsx` — fixed left, list with visibility toggles and isolate
 - `Controls.jsx` — fixed bottom-center, explode/animate/reset buttons
 
@@ -83,6 +92,18 @@ Returns memoized `THREE.MeshStandardMaterial` instances keyed by material name. 
 - **Material cloning**: always `.clone()` a material before setting `emissive` on it — materials are shared instances from `useMaterials`.
 - **Custom geometries**: wrap in `useMemo` to avoid recreating on every render.
 - **Animation**: use `useFrame` with `delta` for frame-rate independent motion. Animate refs directly; don't set state in `useFrame`.
+
+## Supplier lookup backend (`server/`)
+
+A standalone Express server (`server/index.js`) separate from the Vite frontend.
+
+- **Endpoint**: `POST /api/supplier` — accepts `{ partName, material?, description?, dimensions? }`
+- **Returns**: `{ supplier: string, url: string, blurb: string }`
+- **Model**: `claude-sonnet-4-6` with the `web_search_20250305` built-in tool
+- **Agentic loop**: the server drives the tool-use loop itself — Claude may issue multiple web searches before producing a final JSON answer
+- **JSON extraction**: response is stripped of markdown fences and a `/{...}/` regex extracts the object in case Claude adds surrounding prose
+- Vite proxies `/api` → `http://localhost:3001` in dev (configured in `vite.config.js`)
+- Server deps are in `server/package.json` (separate from the frontend); install with `npm install` inside `server/`
 
 ## Adding a new patent
 
