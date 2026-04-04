@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../../store';
 import { datasets } from '../../data/datasets';
+import { SupplierMap } from './SupplierMap';
 
 function formatDims(dims) {
   if (!dims) return null;
@@ -108,6 +109,9 @@ export function InfoPanel() {
                   <span className="value">{cached.supplier}</span>
                 )}
                 {cached.blurb && <p className="desc" style={{ marginTop: 4 }}>{cached.blurb}</p>}
+                {cached.address && (
+                  <SupplierMap address={cached.address} supplier={cached.supplier} phone={cached.phone} />
+                )}
                 <button className="supplier-btn secondary" onClick={handleFindSupplier} disabled={loading}>
                   {loading ? 'Searching…' : 'Refresh'}
                 </button>

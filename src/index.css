@@ -342,6 +342,19 @@ html, body, #root {
   margin-bottom: 6px;
 }
 
+/* ── Supplier map ────────────────────────────── */
+.supplier-map {
+  margin-top: 8px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.supplier-map-hint {
+  font-size: 10px;
+  margin-top: 6px;
+}
+
 /* ── Controls bar ────────────────────────────── */
 .controls-wrapper {
   position: fixed;

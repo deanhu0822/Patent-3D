@@ -41,7 +41,7 @@ app.post('/api/supplier', async (req, res) => {
     `- Do NOT make up URLs — only use URLs you found via web search`,
     ``,
     `After searching, respond with ONLY a single JSON object on one line. No markdown, no explanation, no code fences. Exactly this shape:`,
-    `{"supplier":"<name>","url":"<full https URL>","blurb":"<one sentence on why this supplier>"}`,
+    `{"supplier":"<name>","url":"<full https URL>","blurb":"<one sentence on why this supplier>","address":"<city, state/province, country of the supplier's main location, e.g. 'Santa Fe Springs, CA, USA'>","phone":"<supplier's main phone number if found, else null>"}`,
   ]
     .filter(Boolean)
     .join('\n');
