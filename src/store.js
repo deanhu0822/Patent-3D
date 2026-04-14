@@ -43,4 +43,7 @@ export const useStore = create((set) => ({
 
   animating: false,
   toggleAnimation: () => set((s) => ({ animating: !s.animating })),
+
+  exportModel: null,
+  setExportModel: (fn) => set(() => ({ exportModel: fn })),
 }));

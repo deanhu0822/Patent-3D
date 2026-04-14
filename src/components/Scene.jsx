@@ -1,6 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Environment, ContactShadows } from '@react-three/drei';
 import { useStore } from '../store';
+import { datasets } from '../data/datasets';
+import { analyzePrintableModel, exportPrintableModel } from '../utils/modelExport';
 
 // Loom assemblies
 import { FrameAssembly } from './assemblies/FrameAssembly';
@@ -50,8 +53,29 @@ function ClutchScene() {
 
 function SceneContent() {
   const setSelected = useStore((s) => s.setSelected);
+  const setExportModel = useStore((s) => s.setExportModel);
   const activePatent = useStore((s) => s.activePatent);
   const isLoom = activePatent === 'loom';
+  const printableRootRef = useRef();
+
+  useEffect(() => {
+    setExportModel(({ intent = 'export', format = '3mf', strict = false }) => {
+      const { activePatent: currentPatent, exploded } = useStore.getState();
+      const fileName = `${datasets[currentPatent].title}${exploded ? ' exploded' : ''}`;
+
+      if (intent === 'analyze') {
+        return analyzePrintableModel(printableRootRef.current, { format, strict });
+      }
+
+      return exportPrintableModel(printableRootRef.current, {
+        format,
+        name: fileName,
+        strict,
+      });
+    });
+
+    return () => setExportModel(null);
+  }, [setExportModel]);
 
   return (
     <>
@@ -67,7 +91,9 @@ function SceneContent() {
         <meshStandardMaterial color="#111114" metalness={0.1} roughness={0.9} />
       </mesh>
 
-      {isLoom ? <LoomScene /> : <ClutchScene />}
+      <group ref={printableRootRef}>
+        {isLoom ? <LoomScene /> : <ClutchScene />}
+      </group>
 
       <ContactShadows position={[0, -3.99, 0]} opacity={0.4} scale={40} blur={2} />
     </>
