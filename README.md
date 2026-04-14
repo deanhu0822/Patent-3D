@@ -85,6 +85,3 @@ cd server && node --watch index.js
 - `src/utils/modelExport.js` - STL/3MF export, cleanup, and printability checks.
 - `server/` - Express supplier lookup API.
 
-## License
-
-Proprietary / internal use unless otherwise specified by the repository owner.
