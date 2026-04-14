@@ -1,10 +1,4 @@
-# Patent 3D Viewer — CLAUDE.md
-
-## Project overview
-
-Interactive 3D viewer for mechanical patent drawings. Users can orbit, click parts to inspect them, toggle assembly visibility, trigger an exploded view, animate motion sequences, and export the current model state to printable formats. Selecting a part surfaces a **"Find Supplier"** button that calls a Node.js backend powered by the Anthropic Claude SDK — Claude uses its built-in `web_search` tool to find a real supplier URL for the part.
-
-Built with Vite 8 + React 19, @react-three/fiber v9, @react-three/drei v10, three 0.160, zustand 4.
+# Documentation
 
 ## Commands
 
