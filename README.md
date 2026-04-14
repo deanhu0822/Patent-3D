@@ -1,4 +1,4 @@
-# ShapeFlow - Patent 3D Viewer
+# Patent 3D Viewer
 
 Interactive 3D viewer for mechanical patent drawings with assembly controls, exploded views, animation, AI supplier lookup, and printable export.
 
