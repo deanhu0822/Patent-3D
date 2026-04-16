@@ -15,6 +15,7 @@ export function Housing({ partRef, material = 'Cast Iron', width = 1, height = 0
 
   return (
     <mesh
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

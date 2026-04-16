@@ -54,6 +54,7 @@ export function Disc({ partRef, material = 'Hardened Steel', radius = 1.2, thick
     <mesh
       geometry={geometry}
       material={mat}
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

@@ -41,6 +41,7 @@ export function Spring({ partRef, material = 'Spring Steel', coils = 8, height =
     <mesh
       geometry={geometry}
       material={mat}
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

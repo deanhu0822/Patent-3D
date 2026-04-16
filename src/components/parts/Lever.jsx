@@ -96,6 +96,7 @@ export function Lever({ partRef, material = 'Steel', length = 2, width = 0.25, t
     <mesh
       geometry={geometry}
       material={mat}
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

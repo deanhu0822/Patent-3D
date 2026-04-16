@@ -15,6 +15,7 @@ export function Pin({ partRef, material = 'Bronze', length = 0.5, radius = 0.08,
 
   return (
     <mesh
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

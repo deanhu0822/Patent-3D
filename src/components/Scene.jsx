@@ -55,27 +55,36 @@ function SceneContent() {
   const setSelected = useStore((s) => s.setSelected);
   const setExportModel = useStore((s) => s.setExportModel);
   const activePatent = useStore((s) => s.activePatent);
+  const selectedRef = useStore((s) => s.selectedRef);
   const isLoom = activePatent === 'loom';
   const printableRootRef = useRef();
 
   useEffect(() => {
     setExportModel(({ intent = 'export', format = '3mf', strict = false }) => {
-      const { activePatent: currentPatent, exploded } = useStore.getState();
-      const fileName = `${datasets[currentPatent].title}${exploded ? ' exploded' : ''}`;
+      const { activePatent: currentPatent, exploded, selectedRef: currentSelection } = useStore.getState();
+      const selectedName = currentSelection
+        ? (datasets[currentPatent].components[currentSelection]?.name ?? currentSelection)
+        : 'selection';
+      const fileName = `${datasets[currentPatent].title} ${selectedName}${exploded ? ' exploded' : ''}`;
 
       if (intent === 'analyze') {
-        return analyzePrintableModel(printableRootRef.current, { format, strict });
+        return analyzePrintableModel(printableRootRef.current, {
+          format,
+          strict,
+          selectedRef: currentSelection,
+        });
       }
 
       return exportPrintableModel(printableRootRef.current, {
         format,
         name: fileName,
         strict,
+        selectedRef: currentSelection,
       });
     });
 
     return () => setExportModel(null);
-  }, [setExportModel]);
+  }, [setExportModel, selectedRef]);
 
   return (
     <>

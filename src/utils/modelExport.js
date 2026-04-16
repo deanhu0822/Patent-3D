@@ -46,6 +46,37 @@ function clonePrintableRoot(root) {
   return clone;
 }
 
+function getPartRefForObject(object) {
+  let current = object;
+
+  while (current) {
+    const partRef = current.userData?.partRef;
+    if (partRef) return partRef;
+    current = current.parent;
+  }
+
+  return null;
+}
+
+function filterCloneToPart(root, selectedRef) {
+  if (!selectedRef) return root;
+
+  const toRemove = [];
+  root.traverse((object) => {
+    if (!object.isMesh) return;
+    if (getPartRefForObject(object) !== selectedRef) {
+      toRemove.push(object);
+    }
+  });
+
+  for (const object of toRemove) {
+    object.parent?.remove(object);
+  }
+
+  root.updateWorldMatrix(true, true);
+  return root;
+}
+
 function countDegenerateTriangles(vertices, triangles) {
   const ab = new THREE.Vector3();
   const ac = new THREE.Vector3();
@@ -555,8 +586,8 @@ function buildStoredZip(files) {
   return concatBytes([...localChunks, centralDirectory, endRecord]);
 }
 
-function exportStl(root) {
-  const printableRoot = clonePrintableRoot(root);
+function exportStl(root, { selectedRef } = {}) {
+  const printableRoot = filterCloneToPart(clonePrintableRoot(root), selectedRef);
   return getPrintableMeshData(printableRoot);
 }
 
@@ -575,8 +606,8 @@ function downloadStl(printableMesh, name) {
   triggerDownload(blob, `${sanitizeFileName(name)}.stl`);
 }
 
-function export3mf(root) {
-  const printableRoot = clonePrintableRoot(root);
+function export3mf(root, { selectedRef } = {}) {
+  const printableRoot = filterCloneToPart(clonePrintableRoot(root), selectedRef);
   return getPrintableMeshData(printableRoot);
 }
 
@@ -608,7 +639,7 @@ function download3mf(printableMesh, name) {
   triggerDownload(blob, `${sanitizeFileName(name)}.3mf`);
 }
 
-function getPrintableMeshReport(root, { strict = false, format = '3mf' } = {}) {
+function getPrintableMeshReport(root, { strict = false, format = '3mf', selectedRef = null } = {}) {
   if (!root) {
     throw new Error('The printable model is not ready yet.');
   }
@@ -617,7 +648,9 @@ function getPrintableMeshReport(root, { strict = false, format = '3mf' } = {}) {
     throw new Error(`Unsupported export format: ${format}`);
   }
 
-  const printableMesh = format === 'stl' ? exportStl(root) : export3mf(root);
+  const printableMesh = format === 'stl'
+    ? exportStl(root, { selectedRef })
+    : export3mf(root, { selectedRef });
 
   return buildExportReport(printableMesh, { strict, format });
 }
@@ -626,7 +659,7 @@ export function analyzePrintableModel(root, options) {
   return getPrintableMeshReport(root, options);
 }
 
-export function exportPrintableModel(root, { format, name, strict = false }) {
+export function exportPrintableModel(root, { format, name, strict = false, selectedRef = null }) {
   if (!root) {
     throw new Error('The printable model is not ready yet.');
   }
@@ -635,7 +668,9 @@ export function exportPrintableModel(root, { format, name, strict = false }) {
     throw new Error(`Unsupported export format: ${format}`);
   }
 
-  const printableMesh = format === 'stl' ? exportStl(root) : export3mf(root);
+  const printableMesh = format === 'stl'
+    ? exportStl(root, { selectedRef })
+    : export3mf(root, { selectedRef });
   const report = buildExportReport(printableMesh, { strict, format });
 
   if (report.blocked) {

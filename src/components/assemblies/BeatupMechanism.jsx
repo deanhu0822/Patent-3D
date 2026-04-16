@@ -29,6 +29,7 @@ export function BeatupMechanism({ explodeOffset = [0, 2, 4] }) {
         {/* Left & right uprights */}
         {[-4.6, 4.6].map((x, i) => (
           <mesh key={i} castShadow
+            userData={{ partRef: 'C016' }}
             onClick={(e) => { e.stopPropagation(); useStore.getState().setSelected('C016'); }}
             onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
             onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -40,6 +41,7 @@ export function BeatupMechanism({ explodeOffset = [0, 2, 4] }) {
 
         {/* Reed C017 — comb represented as thin flat panel with lines */}
         <mesh castShadow position={[0, 1.1, 0]}
+          userData={{ partRef: 'C017' }}
           onClick={(e) => { e.stopPropagation(); useStore.getState().setSelected('C017'); }}
           onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
           onPointerOut={() => { document.body.style.cursor = 'auto'; }}

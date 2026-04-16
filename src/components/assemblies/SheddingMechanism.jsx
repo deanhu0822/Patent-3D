@@ -16,6 +16,7 @@ function HeddleFrame({ partRef, position, innerRef }) {
       {/* Frame border — 4 thin bars */}
       {[[-4.15, 0, 0], [4.15, 0, 0]].map((pos, i) => (
         <mesh key={i} castShadow position={pos}
+          userData={{ partRef }}
           onClick={(e) => { e.stopPropagation(); setSelected(partRef); }}
           onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
           onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -27,6 +28,7 @@ function HeddleFrame({ partRef, position, innerRef }) {
       ))}
       {[[-0, 0.95, 0], [0, -0.95, 0]].map((pos, i) => (
         <mesh key={i + 2} castShadow position={pos}
+          userData={{ partRef }}
           onClick={(e) => { e.stopPropagation(); setSelected(partRef); }}
           onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
           onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -38,6 +40,7 @@ function HeddleFrame({ partRef, position, innerRef }) {
       ))}
       {/* Heddle wires — represented as a semi-transparent panel */}
       <mesh castShadow
+        userData={{ partRef: 'C011' }}
         onClick={(e) => { e.stopPropagation(); setSelected('C011'); }}
         onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}

@@ -48,6 +48,7 @@ export function Pawl({ partRef, material = 'Hardened Steel', length = 1.4, width
     <mesh
       geometry={geometry}
       material={mat}
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

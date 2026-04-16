@@ -1,12 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useThree } from '@react-three/fiber';
 import { useStore } from '../../store';
+import { datasets } from '../../data/datasets';
 
 function formatCount(value) {
   return Number(value ?? 0).toLocaleString();
 }
 
-function getStatusBadge(report) {
+function getStatusBadge(report, hasSelection) {
+  if (!hasSelection) {
+    return { label: 'Select Part', tone: 'checking' };
+  }
+
   if (!report) {
     return { label: 'Checking...', tone: 'checking' };
   }
@@ -43,6 +48,7 @@ export function Controls() {
   const toggleAnimation = useStore((s) => s.toggleAnimation);
   const exportModel = useStore((s) => s.exportModel);
   const activePatent = useStore((s) => s.activePatent);
+  const selectedRef = useStore((s) => s.selectedRef);
   const visibleAssemblies = useStore((s) => s.visibleAssemblies);
   const [exporting, setExporting] = useState(null);
   const [error, setError] = useState(null);
@@ -65,6 +71,15 @@ export function Controls() {
         return;
       }
 
+      if (!selectedRef) {
+        if (!cancelled) {
+          setError(null);
+          setAnalysis(null);
+          setResult(null);
+        }
+        return;
+      }
+
       try {
         const nextReport = await exportModel({ intent: 'analyze', strict: strictMode });
         if (!cancelled) {
@@ -84,10 +99,15 @@ export function Controls() {
     return () => {
       cancelled = true;
     };
-  }, [exportModel, strictMode, activePatent, exploded, visibleAssemblies]);
+  }, [exportModel, strictMode, activePatent, exploded, visibleAssemblies, selectedRef]);
 
   async function handleExport(format) {
     if (!exportModel || exporting) return;
+
+    if (!selectedRef) {
+      setError('Select a component in the scene before exporting.');
+      return;
+    }
 
     setExporting(format);
     setError(null);
@@ -104,8 +124,9 @@ export function Controls() {
     }
   }
 
-  const statusBadge = getStatusBadge(analysis);
+  const statusBadge = getStatusBadge(analysis, !!selectedRef);
   const stats = analysis?.stats;
+  const selectedName = selectedRef ? (datasets[activePatent].components[selectedRef]?.name ?? selectedRef) : null;
 
   return (
     <div className="controls-stack">
@@ -121,8 +142,10 @@ export function Controls() {
       {showDetails && (
         <div className="status-details">
           <div className="status-details-title">Current Printability</div>
-          {!stats ? (
-            <div className="status-details-empty">Checking current model...</div>
+          {!selectedRef ? (
+            <div className="status-details-empty">Select a component to check printability.</div>
+          ) : !stats ? (
+            <div className="status-details-empty">Checking selected component...</div>
           ) : (
             <div className="status-details-grid">
               <div className="status-details-row">
@@ -179,14 +202,16 @@ export function Controls() {
         >
           Strict Print Mode
         </button>
-        <button className="ctrl-btn" onClick={() => handleExport('stl')} disabled={!exportModel || !!exporting}>
+        <button className="ctrl-btn" onClick={() => handleExport('stl')} disabled={!exportModel || !selectedRef || !!exporting}>
           {exporting === 'stl' ? 'Exporting STL...' : 'Export STL'}
         </button>
-        <button className="ctrl-btn" onClick={() => handleExport('3mf')} disabled={!exportModel || !!exporting}>
+        <button className="ctrl-btn" onClick={() => handleExport('3mf')} disabled={!exportModel || !selectedRef || !!exporting}>
           {exporting === '3mf' ? 'Exporting 3MF...' : 'Export 3MF'}
         </button>
         {/* ResetButton needs to be rendered inside Canvas context — rendered separately */}
       </div>
+      {selectedName && <div className="controls-help">Export target: {selectedName}</div>}
+      {!selectedRef && <div className="controls-help">Select a component in the 3D view to enable STL/3MF export.</div>}
       {strictMode && (
         <div className="controls-help">Blocks STL/3MF export when the mesh is not a valid printable solid.</div>
       )}
