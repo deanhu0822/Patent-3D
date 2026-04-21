@@ -74,6 +74,9 @@ Clutch assemblies (US4441528A): `DriveAssembly`, `PawlClutchSystem`, `ControlLev
 
 ### Export utility (`src/utils/modelExport.js`)
 
+- Export is **component-based (selection-based)**:
+  - If a part is selected (`selectedRef`), export filters the model to that **selected component only**.
+  - If nothing is selected, export uses the **current visible model subtree**.
 - Exports current model state to:
   - binary `STL` via Three.js `STLExporter`
   - packaged `3MF` with `[Content_Types].xml`, `_rels/.rels`, and `3D/3dmodel.model`
