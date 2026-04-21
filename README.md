@@ -9,7 +9,9 @@ Interactive 3D viewer for mechanical patent drawings with assembly controls, exp
 - Toggle assembly visibility, isolate assemblies, and show all.
 - Exploded view and drive animation controls.
 - AI supplier lookup for selected parts via backend Claude + web search.
-- Export the current visible model state to `STL` and `3MF`.
+- Export is **component-based (selection-based)**:
+  - Click a part to select it, then export to generate an `STL` or `3MF` for the **selected component only**.
+  - If nothing is selected, export uses the **current visible model subtree** (respecting assembly visibility and exploded state).
 - Optional `Strict Print Mode` that blocks export on invalid print topology.
 - Live printability status badge (`Printable`, `Warning`, `Blocked`) with details panel.
 
@@ -70,11 +72,12 @@ cd server && node --watch index.js
 
 ## Printable Export Notes
 
-- Export includes only the current model subtree (not lights, ground, shadows).
-- Export respects current assembly visibility and exploded state.
+- Export operates on the current model subtree (never includes lights, ground, or shadows).
+- If a part is selected, export filters to that **selected component** (component-based export).
+- If nothing is selected, export uses the **current visible model subtree** (respecting assembly visibility and exploded state).
 - `3MF` is generated with millimeter units.
-- Cleanup and validation run before export.
-- In strict mode, export is blocked if topology checks fail.
+- Cleanup and validation (weld duplicate vertices, remove degenerate/duplicate triangles) run before export.
+- In strict mode, export is blocked if topology checks fail (open edges, non-manifold edges, invalid vertices).
 
 ## Project Structure
 
