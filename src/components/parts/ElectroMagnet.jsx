@@ -27,7 +27,7 @@ export function ElectroMagnet({ partRef, width = 1.2, height = 0.8, depth = 0.6,
   };
 
   return (
-    <group position={position} rotation={rotation} scale={scale}>
+    <group position={position} rotation={rotation} scale={scale} userData={{ partRef }}>
       {/* Housing */}
       <mesh castShadow material={housingMat} {...handlers}>
         <boxGeometry args={[width, height, depth]} />

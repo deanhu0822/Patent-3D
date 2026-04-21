@@ -118,10 +118,10 @@ export function InfoPanel() {
               </div>
             ) : (
               <>
-                {error && <p className="supplier-error">{error}</p>}
-                <button className="supplier-btn" onClick={handleFindSupplier} disabled={loading} style={{ pointerEvents: 'auto' }}>
+                {/* {error && <p className="supplier-error">{error}</p>} */}
+                {/* <button className="supplier-btn" onClick={handleFindSupplier} disabled={loading} style={{ pointerEvents: 'auto' }}>
                   {loading ? 'Searching…' : 'Find Supplier'}
-                </button>
+                </button> */}
               </>
             )}
           </div>

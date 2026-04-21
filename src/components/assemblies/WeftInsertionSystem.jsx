@@ -26,6 +26,7 @@ export function WeftInsertionSystem({ explodeOffset = [-6, 0, 0] }) {
       {/* Shuttle C013 — boat-shaped box */}
       <group ref={shuttleRef}>
         <mesh castShadow
+          userData={{ partRef: 'C013' }}
           onClick={(e) => { e.stopPropagation(); useStore.getState().setSelected('C013'); }}
           onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
           onPointerOut={() => { document.body.style.cursor = 'auto'; }}

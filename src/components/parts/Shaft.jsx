@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useMaterials } from '../materials/useMaterials';
 import { useStore } from '../../store';
 
@@ -19,6 +19,7 @@ export function Shaft({ partRef, material = 'Steel', length = 6, radius = 0.3, p
   return (
     <mesh
       ref={innerRef}
+      userData={{ partRef }}
       position={position}
       rotation={rotation}
       scale={scale}

@@ -37,6 +37,7 @@ export function DriveSystem({ explodeOffset = [7, 0, 0] }) {
 
       {/* Drive belt C028 — flat torus */}
       <mesh castShadow
+        userData={{ partRef: 'C028' }}
         onClick={(e) => { e.stopPropagation(); useStore.getState().setSelected('C028'); }}
         onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
@@ -65,6 +66,7 @@ export function DriveSystem({ explodeOffset = [7, 0, 0] }) {
       {/* Bearings C026 */}
       {[[0, 0.6, 0.08], [0.7, 1.4, 0.08], [-0.7, 1.4, 0.08]].map((pos, i) => (
         <mesh key={i} castShadow position={pos}
+          userData={{ partRef: 'C026' }}
           onClick={(e) => { e.stopPropagation(); useStore.getState().setSelected('C026'); }}
           onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
           onPointerOut={() => { document.body.style.cursor = 'auto'; }}
